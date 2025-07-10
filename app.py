@@ -3,10 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS  # Optional, if doing cross-origin requests
 from datetime import datetime, timedelta
+import os
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Replace with a strong secret key
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:8xCE7MNbGnQL0FoF@db.jjadgttgbjpelumfqcsq.supabase.co:5432/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app)  
