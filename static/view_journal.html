@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View journal</title>
+    <link rel="stylesheet" href="/static/dashboard styling.css">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+    <div class="nav_bar">
+        <h1 class="app_title">My Journal</h1>
+        <div class='navbar_menu'>
+            <h3 onclick="redirect_to_dashboard()">Add Entry</h3>
+            <h3>View Journals</h3>
+        </div>
+        <h1 class="logout">Logout</h1>
+    </div>
+
+    <h1 class="header">Your Stories</h1>
+    <div class="filter_bar">
+        <form class="filter_form">
+            <input type="text" placeholder="Enter keywords" class="search_bar" name="keyword_search" hx-post='/filter_by_keywords' hx-trigger="input changed delay:280ms" hx-target=".all_journals">
+            <input type="date" name="date_picker" class="date_picker" hx-post="/filter_journal_bydate" hx-trigger="change" hx-target=".all_journals">
+        </form>
+    </div>
+
+    <div class="all_journals" hx-get="/api/get_entries" hx-trigger="load" hx-swap="innerHTML">
+
+    </div>
+
+    <div class="popup_overlay">
+        <div class="popup_card">
+            <h3 class="popup_title">Journal Title</h3>
+            <h5 class="popup_date">2025-07-10</h5>
+            <p class="popup_content">
+            This is the full journal content that shows up inside the popup.
+            </p>
+            <button class="popup_close">Close</button>
+        </div>
+    </div>
+
+    <script>
+
+       document.body.addEventListener('htmx:afterSwap', function (e) {
+        if (e.target.classList.contains('all_journals')) {
+            const journalCards = e.target.querySelectorAll('.about_journal');
+            journalCards.forEach(card => {
+            card.addEventListener('click', function () {
+                const parent_div = document.querySelector('.popup_overlay')
+                parent_div.style.display = 'flex'
+                const title = this.querySelector('.head_title')?.textContent;
+                const date = this.querySelector('.date')?.textContent;
+                const content = this.querySelector('.journal_content')?.textContent;
+
+                const popup_title = document.querySelector('.popup_title')
+                popup_title.innerHTML = title
+                const popup_date = document.querySelector('.popup_date')
+                popup_date.innerHTML = date
+                const popup_content = document.querySelector('.popup_content')
+                popup_content.innerHTML = content
+                document.body.classList.add('scroll-lock')
+
+
+                document.querySelector('.popup_close').addEventListener('click', function() {
+                    parent_div.style.display = 'none'
+                    document.body.classList.remove('scroll-lock')
+                })
+
+
+            });
+            });
+        }
+        });
+
+        
+
+
+        function redirect_to_dashboard() {
+            window.location.href = '/dashboard'
+        }
+
+        document.querySelector('.logout').addEventListener('click', async function(e) {
+            const res = await fetch('/logout', {
+                method: 'POST'
+            })
+            const data = await res.json()
+            if (data.success) {
+                window.location.href = '/login'
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard styling.css">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="https://kit.fontawesome.com/4b2d151546.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="nav_bar">
+        <h1>My Journal</h1>
+        <div class='navbar_menu'>
+            <h3>Add Entry</h3>
+            <h3 onclick='redirect_to_view_page()'>View Journals</h3>
+        </div>
+        <h1 class="logout">Logout</h1>
+    </div>
+    <div class="user_content">
+        <h1>Record your story</h1>
+        <div class="user_div">
+            <form class="my_form" hx-post="/api/post_entries" hx-target=".response_div" hx-swap="none" hx-on::after-request="console.log('request completed'); showToast('Saved!')">
+                <input type="text" name="title" required placeholder="Title">
+                <textarea name="content" required placeholder="Dear Diary..."></textarea>
+                <button type="submit">Save</button>
+            </form>
+            <div class="response_div"></div>
+        </div>
+            <!-- <div class="about_journal">
+                <div class="journal_title">
+                    <h3 class="head_title"></h3>
+                    <h5 class="date"></h5>
+                </div>
+                <p class="journal_content"></p>
+            </div> -->
+            
+        
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script>
+    
+
+        function redirect_to_view_page() {
+            window.location.href = '/view_journal'
+        }
+        
+        document.querySelector('.my_form').addEventListener('htmx:afterRequest', function() {
+            this.reset();
+        });
+        document.querySelector('.logout').addEventListener('click', async function(e) {
+            const res = await fetch('/logout', {
+                method: 'POST'
+            })
+            const data = await res.json()
+            if (data.success) {
+                window.location.href = '/login'
+            }
+        })
+
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+            toast.classList.remove('show');
+            }, duration);
+        }
+    </script>
+</body>
+<script src="/static/script.js"></script>
+</html>

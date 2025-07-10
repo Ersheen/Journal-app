@@ -1,0 +1,474 @@
+/* Center the user_div and style as a card */
+.user_content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.user_content h1 {
+    color: hsl(240, 42%, 68%);
+    font-size: 40px;
+}
+.user_div {
+    background: hsl(235, 33%, 16%);
+    border-radius: 10px;
+    box-shadow: 0 12px 48px 0 rgba(30,32,60,0.22), 0 2px 12px rgba(67,99,255,0.10);
+    padding: 64px 48px 48px 48px;
+    min-width: 0;
+    max-width: 900px;
+    width: 100%;
+    /* padding-left: 1px; */
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 38px auto 48px auto;
+    /* padding-top: 20px; */
+}
+.user_div .my_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+}
+
+.my_form {
+    padding-right: 23px;
+}
+.user_div input,
+.user_div textarea {
+    width: 100%;
+    background: #23244a;
+    color: #fff;
+    border: 1.5px solid #2d2f5a;
+    border-radius: 8px;
+    padding: 14px 16px;
+    line-height: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    outline: none;
+    transition: border 0.18s, background 0.18s;
+}
+.user_div textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+.user_div input:focus,
+.user_div textarea:focus {
+    border: 1.5px solid #6c63ff;
+    background: #23244a;
+}
+.user_div button {
+    background: #6c63ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(108,99,255,0.10);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+    margin-top: 8px;
+    align-self: flex-start;
+    min-width: 120px;
+}
+.user_div button:hover {
+    background: #4834d4;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(108,99,255,0.18);
+    transform: translateY(-2px) scale(1.04);
+}
+
+body {
+    margin: 0 auto;
+    background-color: #131429;
+    overflow-x: hidden;
+}
+.nav_bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 240px;
+    background: #1a1c34;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 36px 24px 24px 24px;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18);
+    z-index: 2000;
+    border-radius: 0 24px 24px 0;
+    border-bottom: none;
+    border-right: 2px solid #23244a;
+    gap: 36px;
+}
+
+body {
+    margin-left: 240px;
+}
+
+/* Optional: Make nav_bar appear above content with a shadow */
+.nav_bar {
+    box-shadow: 4px 0 24px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* Style for nav_bar menu items */
+.nav_bar h1, .nav_bar h3, .nav_bar .logout {
+    color: #fff;
+    margin: 0 0 18px 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.nav_bar .logout {
+    align-self: stretch;
+    margin-top: auto;
+    margin-bottom: 60px;
+    padding: 14px 0 14px 8px;
+    cursor: pointer;
+    color: #ffb366 !important;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.28);
+    background: none;
+    border: none;
+    outline: none;
+    transition: color 0.18s, text-shadow 0.18s, background 0.18s;
+    z-index: 10;
+    display: block;
+}
+.nav_bar .logout:hover {
+    color: #ff9800 !important;
+    text-shadow: 0 4px 16px rgba(255, 152, 0, 0.18);
+    background: #23244a;
+}
+.navbar_menu {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 32px;
+    width: 100%;
+}
+.navbar_menu h3 {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: #e2cfa2;
+    cursor: pointer;
+    padding: 10px 0 10px 8px;
+    border-radius: 8px;
+    transition: background 0.18s, color 0.18s, box-shadow 0.22s, transform 0.22s;
+    user-select: none;
+    outline: none;
+    position: relative;
+}
+.navbar_menu h3:active {
+    background: #2d2f5a;
+    color: #fff;
+    box-shadow: 0 2px 12px 0 rgba(67,99,255,0.10);
+    transform: scale(0.97) translateX(4px) skewX(-2deg);
+}
+
+.navbar_menu h3:hover {
+    background: #23244a;
+    color: #fff;
+    box-shadow: 0 4px 18px 0 rgba(67,99,255,0.13);
+    transform: scale(1.045) translateX(6px) skewX(-2deg);
+}
+
+/* .logout {
+    margin-bottom: 20px;
+} */
+
+.toast {
+  position: fixed;
+  top: 30px; /* instead of bottom */
+  /* right: 30px; */
+  background-color: #5eca2c;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(-20px); /* animate downward */
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.response_div {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+
+.all_journals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 2.2rem;
+  justify-content: center;
+  padding: 40px 60px;
+  position: absolute;
+  top: 40%;
+  left: 60%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 100%;
+}
+
+.about_journal {
+    cursor: pointer;
+    background: #1e1f3a;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(108, 99, 255, 0.08);
+    padding: 24px 28px;
+    width: 300px;
+    margin-bottom: 24px;
+    /* margin-left: 30spx; */
+    height: 150px;
+    color: #f1f1f1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeSlideIn 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.about_journal:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 6px 18px rgba(108, 99, 255, 0.12);
+}
+
+.journal_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 20px;
+}
+
+.head_title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #e2cfa2;
+    margin: 0;
+}
+
+.date {
+    font-size: 0.95rem;
+    color: #aaa;
+    margin: 0;
+}
+
+.journal_content {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #ddd;
+    margin-bottom: 20px;
+    width: 70%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+/* Animation */
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about_journal{
+  background: #1e1f3a;
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.about_journal:hover {
+  transform: translateY(-6px) scale(1.015);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), 0 6px 18px rgba(108, 99, 255, 0.12);
+}
+
+.filter_form {
+    display: flex;
+    justify-content: flex-start;
+    /* align-items: center; */
+    margin-left: 7rem;
+    margin-top: 6rem;
+    gap: 1.8rem;
+}
+
+.header {
+    margin-left: 7rem;
+    font-size: 40px;
+    color: hsl(240, 42%, 68%);
+    margin-top: 50px;
+}
+
+.app_title {
+    color: hsl(240, 42%, 68%);
+}
+
+.search_bar {
+  background-color: #232642;
+  border: 1.5px solid #2d2f5a;
+  border-radius: 10px;
+  padding: 12px 18px;
+  width: 100%;
+  max-width: 600px;
+  font-size: 1rem;
+  color: #fff;
+  outline: none;
+  height: 25px;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search_bar::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.search_bar:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+  background-color: #2a2d4f;
+}
+
+input[type="date"] {
+  background-color: #232642;
+  border: 1.5px solid #2d2f5a;
+  border-radius: 10px;
+  padding: 12px 18px;
+  /* width: 100%; */
+  /* max-width: 100px;   */
+  font-size: 1rem;
+  color: #fff;
+  outline: none;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  appearance: none; /* removes default styling in some browsers */
+}
+
+input[type="date"]::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+input[type="date"]:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+  background-color: #2a2d4f;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(60%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(90%);
+  cursor: pointer;
+}       
+
+/* Overlay behind the popup */
+.popup_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  overflow-y: hidden;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  /* visibility: hidden; hide by default */
+  /* opacity: 0; */
+  transition: opacity 0.3s ease;
+}
+
+
+/* Popup card styling */
+.popup_card {
+  display: flex;
+  flex-direction: column;       /* stack children vertically */
+  max-height: 80vh;             /* limit height to viewport */
+  background-color: #1a1c34;
+  width: 90%;
+  max-width: 450px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;             /* prevent spillover */
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.popup_title {
+  font-size: 2rem;
+  margin-top: -5px;
+  color: #8785ff;
+}
+
+.popup_date {
+  font-size: 1.2rem;
+  color: #a0a5c0;
+  margin-top: -1.3rem;
+}
+
+body.scroll-lock {
+  overflow: hidden;
+}
+
+.popup_content {
+  flex: 1;                      /* fill remaining space */
+  overflow-y: auto;
+  font-size: 1.7rem;
+  line-height: 2.3rem;
+  /* overflow-y: hidden; */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  color: #a0a5c0;
+  margin-top: -5px;
+  padding-right: 5px;
+  margin-bottom: 1.5rem;
+  word-break: break-word;
+}
+
+.popup_close {
+  align-self: flex-end;
+  background-color: #5eca2c;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+/* Entry animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

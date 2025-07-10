@@ -1,0 +1,99 @@
+.calendar_column #menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2.1rem;
+}
+/* Minimalistic card-style login form with antiquewhite theme */
+
+body {
+    min-height: 100vh;
+    background: #181938;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+}
+
+#login_form, #signup_form {
+    background: #fffaf3;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07), 0 1.5px 6px 0 rgba(0,0,0,0.03);
+    padding: 2.5rem 2rem 2rem 2rem;
+    min-width: 320px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+#login_form h2, #signup_form h2 {
+    margin: 0 0 0.5rem 0;
+    color: #7c6a4d;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+#login_form input, #signup_form input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1px solid #e6dbc7;
+    border-radius: 8px;
+    background: #fffef9;
+    font-size: 1rem;
+    color: #7c6a4d;
+    outline: none;
+    transition: border 0.2s;
+    margin-bottom: 0.05rem;
+}
+
+#login_form input:focus, #signup_form input:focus{
+    border: 1.5px solid #e2cfa2;
+    background: #fdf6e7;
+}
+
+#login_form button, #signup_form button {
+    width: 100%;
+    padding: 0.7rem 0;
+    background: #f5e9da;
+    color: #7c6a4d;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.04);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+#login_form button:hover, #signup_form button:hover, #login_form button:focus, #signup_form button:focus {
+    background: #e2cfa2;
+    color: #5a4a2c;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+}
+
+#login_form p, #signup_form p {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.97rem;
+    color: #8d7b5a;
+}
+
+#login_form a, #signup_form a {
+    color: #b89c6b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+#login_form a:hover, #signup_form a:hover {
+    color: #7c6a4d;
+    text-decoration: underline;
+}
+
+@media (max-width: 400px) {
+    #login_form, #signup_form {
+        min-width: unset;
+        padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+    }
+}
