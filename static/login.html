@@ -17,24 +17,40 @@
 
 
     <script>
-        document.getElementById("login_form").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const mail = document.getElementById("mail").value;
-            const password = document.getElementById("password").value;
+    document.getElementById("login_form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const mail = document.getElementById("mail").value;
+    const password = document.getElementById("password").value;
 
-            const res = await fetch("/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ mail, password })
-            });
-
-            const data = await res.json();
-            alert(data.message);
-
-            if (data.success) {
-                window.location.href = "/dashboard";
-            }
+    try {
+        const res = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ mail, password })
         });
+
+        // Gracefully handle non-JSON response
+        const contentType = res.headers.get("Content-Type");
+        if (!contentType || !contentType.includes("application/json")) {
+            const errorText = await res.text(); // fallback to plain text
+            alert("Login failed: Server returned invalid response");
+            console.error("Server response:", errorText);
+            return;
+        }
+
+        const data = await res.json();
+
+        alert(data.message || "Login response received.");
+
+        if (data.success) {
+            window.location.href = "/dashboard";
+        }
+
+    } catch (err) {
+        console.error("Login error:", err);
+        alert("Something went wrong. Please try again.");
+    }
+});
     </script>
 
 

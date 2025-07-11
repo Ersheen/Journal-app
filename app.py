@@ -123,18 +123,24 @@ def login():
         return app.send_static_file('login.html')
 
     else:
-        data = request.get_json()
-        mail = data.get('mail')
-        password = data.get('password')
+        try:
+            data = request.get_json()
+            mail = data.get('mail')
+            password = data.get('password')
 
-        user = User.query.filter_by(mail=mail).first()
+            user = User.query.filter_by(mail=mail).first()
 
-        if user:
-            session['user_id'] = user.id
-        if user and check_password_hash(user.password, password):
-            return jsonify({'message': 'login successfull!', 'success': True})
-        
-        return jsonify({'message': 'invalid credentials', 'success': False}), 401
+            if user:
+                session['user_id'] = user.id
+            if user and check_password_hash(user.password, password):
+                return jsonify({'message': 'login successfull!', 'success': True})
+            
+            return jsonify({'message': 'invalid credentials', 'success': False}), 401
+         
+        except Exception as e:
+            print('login error: ', e)
+            return jsonify({"success": False, "error": str(e)}), 500
+
 
 
 # dashboard route
