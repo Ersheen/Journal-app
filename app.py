@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS  # Optional, if doing cross-origin requests
 from datetime import datetime, timedelta
-# import psycopg
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Replace with a strong secret key
