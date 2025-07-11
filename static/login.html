@@ -9,8 +9,8 @@
 <body>
     <form id="login_form">
         <h2>Login</h2>
-        <input type="email" id="mail" placeholder="mail" required><br>
-        <input type="password" id="password" placeholder="Password" required><br>
+        <input type="email" id="mail" placeholder="mail" name="mail" required><br>
+        <input type="password" id="password" placeholder="Password" name="password" required><br>
         <button type="submit">Login</button>
         <p>Don't have an account? <a href="/signup">Register</a></p>
     </form>
@@ -19,37 +19,6 @@
     <script>
     document.getElementById("login_form").addEventListener("submit", async function (e) {
     e.preventDefault();
-    const mail = document.getElementById("mail").value;
-    const password = document.getElementById("password").value;
-
-    try {
-        const res = await fetch("/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ mail, password })
-        });
-
-        // Gracefully handle non-JSON response
-        const contentType = res.headers.get("Content-Type");
-        if (!contentType || !contentType.includes("application/json")) {
-            const errorText = await res.text(); // fallback to plain text
-            alert("Login failed: Server returned invalid response");
-            console.error("Server response:", errorText);
-            return;
-        }
-
-        const data = await res.json();
-
-        alert(data.message || "Login response received.");
-
-        if (data.success) {
-            window.location.href = "/dashboard";
-        }
-
-    } catch (err) {
-        console.error("Login error:", err);
-        alert("Something went wrong. Please try again.");
-    }
 });
     </script>
 

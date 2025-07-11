@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, redirect, url_for, Response
+from flask import Flask, request, jsonify, session, redirect, url_for, Response, make_response
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS  # Optional, if doing cross-origin requests
@@ -99,20 +99,22 @@ def signup():
     if request.method == 'GET':
         return app.send_static_file('signup.html')
     else:
-        data = request.get_json()
-        name = data.get('name')
-        mail = data.get('mail')
-        password = data.get('password')
+        name = request.form.get('name')
+        mail = request.form.get('mail')
+        password = request.form.get('password')
 
         if User.query.filter_by(mail=mail).first():
-            return jsonify({'message': 'User already exists', 'success': False}), 400
+            return '<p>User already exists</p>'
         
 
         hashed_pw = generate_password_hash(password)
         new_user = User(name=name, mail=mail, password=hashed_pw)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({'message': 'Signup successfull!', 'success': True})
+        response = make_response("", 204)
+        response.headers["HX-Redirect"] = "/login"
+        return response
+
 
     
 # login route
@@ -123,24 +125,20 @@ def login():
         return app.send_static_file('login.html')
 
     else:
-        try:
-            data = request.get_json()
-            mail = data.get('mail')
-            password = data.get('password')
+            mail = request.form.get('mail')
+            password = request.form.get('password')
 
             user = User.query.filter_by(mail=mail).first()
 
             if user:
                 session['user_id'] = user.id
             if user and check_password_hash(user.password, password):
-                return jsonify({'message': 'login successfull!', 'success': True})
-            
-            return jsonify({'message': 'invalid credentials', 'success': False}), 401
-         
-        except Exception as e:
-            print('login error: ', e)
-            return jsonify({"success": False, "error": str(e)}), 500
+                response = make_response("", 204)
+                response.headers["HX-Redirect"] = "/dashboard"
+                return response
 
+            
+            return '<p>Invalid credenials</p>'
 
 
 # dashboard route
