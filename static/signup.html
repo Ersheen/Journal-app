@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <form id="signup_form">
+    <form id="signup_form" hx-post="/signup" hx-target=".response_div" hx-swap="innerHTML">
         <h2>Signup</h2>
         <input type="text" id="name" placeholder="Name" name="name" required><br>
         <input type="email" id="mail" placeholder="Email" name="mail" required><br>
@@ -15,7 +15,9 @@
         <button type="submit">Signup</button>
         <p>Already have an account? <a href="/login">Login</a></p>
     </form>
+    <div class=".response_div">
 
+    </div>
     <script>
         document.getElementById("signup_form").addEventListener("submit", async function(e) {
             e.preventDefault();
