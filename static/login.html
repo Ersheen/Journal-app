@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 <body>
-    <form id="login_form" hx-post="/login" hx-target=".accha" hx-swap="innerHTML">
+    <form id="login_form" hx-post="/login" hx-target=".accha" hx-swap="none">
         <h2>Login</h2>
         <input type="email" id="mail" placeholder="mail" name="mail" required><br>
         <input type="password" id="password" placeholder="Password" name="password" required><br>
