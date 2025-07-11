@@ -225,8 +225,18 @@ def filter_by_keyword():
 """
     return html
 
+@app.route("/test-user")
+def test_user():
+    try:
+        user = User.query.first()  # 🧪 Replace with your actual model name
+        if user:
+            return f"✅ First user email: {user.email}"
+        else:
+            return "✅ Connected to DB, but no users found."
+    except Exception as e:
+        print("❌ DB test error:", e)
+        return f"❌ DB connection failed: {e}", 500
+
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(host='0.0.0.0', port=5000)
