@@ -230,7 +230,7 @@ def test_user():
     try:
         user = User.query.first()  # 🧪 Replace with your actual model name
         if user:
-            return f"✅ First user email: {user.email}"
+            return f"✅ First user email: {user.mail}"
         else:
             return "✅ Connected to DB, but no users found."
     except Exception as e:
