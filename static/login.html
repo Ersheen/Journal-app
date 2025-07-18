@@ -8,7 +8,8 @@
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 <body>
-    <form id="login_form" hx-post="/login" hx-target=".accha" hx-swap="none">
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+    <form id="login_form" hx-post="/login" hx-target="#toast-container" hx-swap="beforeend">
         <h2>Login</h2>
         <input type="email" id="mail" placeholder="mail" name="mail" required><br>
         <input type="password" id="password" placeholder="Password" name="password" required><br>
@@ -24,6 +25,13 @@
     document.getElementById("login_form").addEventListener("submit", async function (e) {
     e.preventDefault();
 });
+    document.addEventListener("htmx:afterSwap", (e) => {
+            if (e.target.id === "toast-container") {
+                setTimeout(() => {
+                    e.detail.target.lastElementChild.remove();
+                }, 4000);
+                }
+            });
     </script>
 
 

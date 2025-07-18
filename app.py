@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, redirect, url_for, Response, make_response
+from flask import Flask, request, jsonify, session, redirect, url_for, Response, make_response, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS  # Optional, if doing cross-origin requests
@@ -104,7 +104,7 @@ def signup():
         password = request.form.get('password')
 
         if User.query.filter_by(mail=mail).first():
-            return '<p>User already exists</p>'
+            return render_template('components/toast.html', message='⚠️ User already exists')
         
 
         hashed_pw = generate_password_hash(password)
@@ -138,7 +138,7 @@ def login():
                 return response
 
             
-            return '<p>Invalid credenials</p>'
+            return render_template('components/toast.html', message='⚠️ Invalid Credentials')
 
 
 # dashboard route
