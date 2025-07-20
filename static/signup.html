@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 <body>
-    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+    <div id="toast-container" style="position: fixed; top: 80px; right: 680px; z-index: 9999;"></div>
     <form id="signup_form" hx-post="/signup" hx-target="#toast-container" hx-swap="beforeend">
         <h2>Signup</h2>
         <input type="text" id="name" placeholder="Name" name="name" required><br>
@@ -25,12 +25,17 @@
             e.preventDefault();
         });
         document.addEventListener("htmx:afterSwap", (e) => {
-            if (e.target.id === "toast-container") {
-                setTimeout(() => {
-                    e.detail.target.lastElementChild.remove();
-                }, 4000);
-                }
-            });
+        if (e.target.id === "toast-container") {
+            const toast = e.detail.target.lastElementChild;
+            setTimeout(() => {
+                toast.classList.add("fade-out");
+            }, 3000); // Delay before fading out
+
+            setTimeout(() => {
+                toast.remove();
+            }, 4000); // Remove after fade-out animation
+            }
+        });
     </script>
 
 

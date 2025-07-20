@@ -18,14 +18,15 @@
         <h1 class="logout">Logout</h1>
     </div>
     <div class="user_content">
+        <div id="toast-container" style="position: fixed; bottom: 20rem; right: 800px; z-index: 9999;"></div>
         <h1>Record your story</h1>
         <div class="user_div">
-            <form class="my_form" hx-post="/api/post_entries" hx-target=".response_div" hx-swap="none" hx-on::after-request="console.log('request completed'); showToast('Saved!')">
+            <form class="my_form" hx-post="/api/post_entries" hx-target="#toast-container" hx-swap="beforeend">
                 <input type="text" name="title" required placeholder="Title">
                 <textarea name="content" required placeholder="Dear Diary..."></textarea>
                 <button type="submit">Save</button>
             </form>
-            <div class="response_div"></div>
+            <!-- <div class="response_div"></div> -->
         </div>
             <!-- <div class="about_journal">
                 <div class="journal_title">
@@ -36,11 +37,15 @@
             </div> -->
             
         
-        <div id="toast" class="toast"></div>
     </div>
 
     <script>
     
+
+        // document.querySelector('.my_form').addEventListener('submit', async function(e) {
+        //     e.preventDefault()
+        // })
+
 
         function redirect_to_view_page() {
             window.location.href = '/view_journal'
@@ -59,15 +64,27 @@
             }
         })
 
-        function showToast(message, duration = 3000) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
 
-            setTimeout(() => {
-            toast.classList.remove('show');
-            }, duration);
+       document.addEventListener("htmx:afterSwap", (e) => {
+        if (e.target.id === "toast-container") {
+        const toast = e.detail.target.lastElementChild;
+
+        if (!toast) return;
+
+        // Delay before starting fade-out
+        setTimeout(() => {
+            toast.classList.add("fade-out");
+        }, 2500); // Show for 2.5 seconds
+
+        // Remove toast after fade-out animation completes
+        toast.addEventListener("animationend", (event) => {
+            if (event.animationName === "fadeout") {
+            toast.remove();
+            }
+        });
         }
+  });
+
     </script>
 </body>
 <script src="/static/script.js"></script>

@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"  # Replace with a strong secret key
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL").replace("postgresql://", "postgresql+psycopg://")
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 CORS(app)  
@@ -37,18 +37,22 @@ def add_entry():
 
     if 'user_id' not in session:
         return jsonify({'message': 'Unauthorized access'}), 401
+    
+    try:
+        title = request.form.get('title')
+        content = request.form.get('content')
+        now = datetime.utcnow()
+        month_name = datetime.utcnow().strftime('%B')  # e.g., 'July'
 
-    title = request.form.get('title')
-    content = request.form.get('content')
-    now = datetime.utcnow()
-    month_name = datetime.utcnow().strftime('%B')  # e.g., 'July'
+        new_entry = Journal_entries(title=title, content=content, user_id=session['user_id'], date=now, month=month_name)
+        db.session.add(new_entry)
+        db.session.commit()
 
-    new_entry = Journal_entries(title=title, content=content, user_id=session['user_id'], date=now, month=month_name)
-    db.session.add(new_entry)
-    db.session.commit()
+        return render_template("components/toast.html", message="✅ Note saved successfully!")
 
-    date_str = new_entry.date.strftime('%Y-%m-%d')
-    return Response(status=204)
+    except Exception as e:
+        return render_template("components/toast.html", message="❌ Error saving note")
+
     # return f"""
     # <div class="about_journal">
     #     <div class="journal_title">
@@ -239,4 +243,4 @@ def test_user():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

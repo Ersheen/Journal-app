@@ -104,8 +104,13 @@ body {
   margin-bottom: 10px;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  animation: fadein 0.5s, fadeout 0.5s 3s;
+  animation: fadein 0.5s, fadeout 0.5s 4s;
 }
+
+.fade-out {
+  animation: fadeout 1s ease-out forwards;
+}
+
 
 @keyframes fadein {
   from { opacity: 0; transform: translateY(-10px); }
